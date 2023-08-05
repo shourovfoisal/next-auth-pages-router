@@ -7,6 +7,7 @@ const Navbar = () => {
         <Link className='p-8 bg-lime-500 rounded-lg' href={`/`}>Home</Link>
         <Link className='p-8 bg-lime-500 rounded-lg' href={`/client`}>Client</Link>
         <Link className='p-8 bg-lime-500 rounded-lg' href={`/server`}>Server</Link>
+        <Link className='px-8 py-4 my-4 bg-lime-700 rounded-lg' href={`/signOut`}>Sign Out</Link>
     </div>
   )
 }

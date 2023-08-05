@@ -8,20 +8,16 @@ export default withAuth(
     async function middleware(req: NextRequest) {
     
         const token = await getToken({req});
+        console.log(new Date().toLocaleTimeString());
         console.log(`Token status is: ${token?.status}`);
         console.log(`---------`);
 
         const path = req.nextUrl.pathname;
-        if(token?.status === "SIGNED_IN" && path !== "/") {
-            return NextResponse.redirect(`${urlBase}/`);
+        if(!token?.status && path !== "/signIn") {
+            return NextResponse.redirect(`${urlBase}/signIn`);
         }
         else if(token?.status === "OTP_REQUIRED" && path !== "/twoFactor") {
             return NextResponse.redirect(`${urlBase}/twoFactor?user=${token?.name}`);
-        } 
-        else {
-            if(path !== "/signIn") {
-                return NextResponse.redirect(`${urlBase}/signIn`);
-            }
         }
     }, 
     {

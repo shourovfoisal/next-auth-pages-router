@@ -19,14 +19,15 @@ export default NextAuth ({
                 }
             },
             async authorize(credentials, request) {
+
                 const userRes = await fetch("http://localhost:3001/user/1")
                 const user = await userRes.json();
 
                 if( credentials?.username === user?.name && credentials?.password === user?.password ) {
-                    console.log("login success");
+                    // console.log("login success");
                     return user;
                 } else {
-                    console.log("login failure");
+                    // console.log("login failure");
                     return null
                 }
             },
@@ -40,13 +41,16 @@ export default NextAuth ({
                     type: "text",
                     placeholder: "Input your username"
                 },
-                verificationCode: {
+                verification: {
                     label: "Verification Code:",
                     type: "text",
                     placeholder: "Input your verification code"
                 }
             },
             async authorize(credentials) {
+
+                console.log("credentials");
+                console.log(credentials);
 
                 const userRes = await fetch("http://localhost:3001/user/1")
                 const user = await userRes.json();
@@ -56,13 +60,13 @@ export default NextAuth ({
 
                 if( 
                     credentials?.username === twoFactor?.user && 
-                    credentials?.verificationCode === twoFactor?.value 
+                    credentials?.verification === twoFactor?.value 
                 ) {
-                    console.log("two factor success");
+                    // console.log("two factor success");
                     user.status = "SIGNED_IN";  
                     return user
                 } else {
-                    console.log("two factor failure");
+                    // console.log("two factor failure");
                     return null
                 }
             },
